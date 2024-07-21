@@ -18,40 +18,49 @@ const displayObjs = () => {
     return nbObj;
 }; */
 
+function displayError(param: string): number {
+    return 2;
+}
+
 const removeSomeObjs2 = () => {
-    const errorParagraph = document.getElementById('error') as HTMLParagraphElement;
+    let errorParagraph = {} as HTMLElement;
+
+    const toto = document.getElementById('error');
+
+    if (toto) {
+        errorParagraph = toto;
+    }
+
+    //const errorParagraph = document.getElementById('error') as HTMLParagraphElement;
     errorParagraph.innerText = '';
     const inputElement = document.getElementById('objToRemove') as HTMLInputElement;
 
+    const quantityToRemove: number = parseInt(inputElement.value);
     if (inputElement) {
-        let quantity: string | null = inputElement.value;
-        const quantityToRemove: number = parseInt(quantity);
-
-        if (isNaN(quantityToRemove) || quantityToRemove < 1 || quantityToRemove > 6) {
-            let errorMessage: string;
-            if (isNaN(quantityToRemove)) {
-                errorMessage = "Merci d'entrer une valeur";
-            } else {
-                errorMessage = "Le nombre d'objets à retirer doit être entre 1 et 6";
-            }
-            errorParagraph.innerText = errorMessage;
-            inputElement.value = '';
-            return;
+        let errorMessage: string = '';
+        if (isNaN(quantityToRemove)) {
+            errorMessage = "Merci d'entrer une valeur";
+        } else if (quantityToRemove < 1 || quantityToRemove > 6) {
+            errorMessage = "Le nombre d'objets à retirer doit être entre 1 et 6";
         } else {
             nbObj -= quantityToRemove;
             if (divObj) divObj.innerText = nbObj.toString();
             inputElement.value = '';
+            return nbObj;
         }
+        errorParagraph.innerText = errorMessage;
+        inputElement.value = '';
+        return;
     }
-    return nbObj;
 };
 
 const displayChange = () => {
-    const victoryDiv = document.getElementById('victoire') as HTMLDivElement;
+    const victoryDiv = document.getElementById('victoire') as HTMLElement;
     victoryDiv.innerText = 'Bravo, vous avez gagné !';
-    victoryDiv.style.display = 'flex';
-    const gameDiv = document.getElementById('gamePlayer') as HTMLDivElement;
-    gameDiv.style.display = 'none';
+    victoryDiv.classList.add('visible');
+    const gameDiv = document.getElementById('gamePlayer') as HTMLElement;
+    gameDiv.classList.add('hidden');
+    //gameDiv.style.display = 'none';
 };
 
 const victoire = () => {
