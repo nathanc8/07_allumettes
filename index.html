@@ -7,13 +7,15 @@
         <title>Document</title>
     </head>
     <body>
-        <div class="container">
+        <div id="container" class="container">
             <p id="nbObjs" class="gameDisplayer"></p>
         </div>
+        <div id="victoire" class="victoire"></div>
         <div id="gamePlayer" class="container column">
             <p>Combien d'allumettes on enlève ?</p>
             <input id="objToRemove" type="number" /><br />
-            <button onclick="removeSomeObjs()">Play</button>
+            <button onclick="victoire(nbObj)">Play</button>
+            <p id="error"></p>
         </div>
         <script src="script.js"></script>
     </body>

@@ -18,3 +18,10 @@
     border-color: black;
     padding: 5px 15px;
 }
+
+.victoire {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 5em;
+}
