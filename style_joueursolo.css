@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.gameDisplayer {
+    display: flex;
+    box-shadow: 5px 5px 5px grey;
+    width: fit-content;
+    font-size: 5em;
+    align-items: center;
+    border: solid;
+    border-color: black;
+    padding: 5px 15px;
+}
+
+.victoire {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 5em;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: flex;
+}
