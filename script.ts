@@ -1,7 +1,13 @@
-let nbObj: number = 5;
+let nbObj: number = 50;
 let divObj = document.getElementById("nbObjs");
+let playerID: number = 1;
+const remove_input = document.getElementById("objToRemove") as HTMLInputElement;
+const remove_button = document.getElementById("play") as HTMLElement;
 
 const displayObjs = () => {
+    let remove_label = document.getElementById("lblObjToRemove") as HTMLElement;
+    remove_input.placeholder = `Joueur ${playerID}`;
+    remove_label.innerText = `Joueur ${playerID}, à votre tour !`;
     if (divObj) divObj.innerText = nbObj.toString();
     return divObj;
 };
@@ -18,11 +24,8 @@ const displayObjs = () => {
     return nbObj;
 }; */
 
-const removeSomeObjs2 = () => {
-    let errorParagraph = {} as HTMLElement;
-    const toto = document.getElementById("error");
-    if (toto) errorParagraph = toto;
-    //const errorParagraph = document.getElementById('error') as HTMLElement;
+const removeSomeObjs2 = (): number | undefined => {
+    const errorParagraph = document.getElementById("error") as HTMLElement;
     errorParagraph.innerText = "";
     const inputElement = document.getElementById("objToRemove") as HTMLInputElement;
 
@@ -37,6 +40,7 @@ const removeSomeObjs2 = () => {
             nbObj -= quantityToRemove;
             if (divObj) divObj.innerText = nbObj.toString();
             inputElement.value = "";
+            if (nbObj !== 0) changePlayer(nbrPlayers);
             return nbObj;
         }
         errorParagraph.innerText = errorMessage;
@@ -47,7 +51,7 @@ const removeSomeObjs2 = () => {
 
 const displayChange = () => {
     const victoryDiv = document.getElementById("victoire") as HTMLElement;
-    victoryDiv.innerText = "Bravo, vous avez gagné !";
+    victoryDiv.innerText = `Bravo Joueur ${playerID}, vous avez gagné !`;
     victoryDiv.classList.add("visible");
     const gameDiv = document.getElementById("gamePlayer") as HTMLElement;
     gameDiv.classList.add("hidden");
@@ -55,8 +59,6 @@ const displayChange = () => {
 };
 
 function clickButton() {
-    const remove_input = document.getElementById("objToRemove") as HTMLElement;
-    const remove_button = document.getElementById("play") as HTMLElement;
     remove_button.addEventListener("click", function () {
         victoire();
     });
@@ -72,6 +74,30 @@ const victoire = () => {
         displayChange();
     }
 };
+
+function maxPlayers(): number {
+    let nbrPlayers;
+    while (isNaN(nbrPlayers)) {
+        nbrPlayers = prompt("Déterminez le nombre de joueurs");
+        nbrPlayers = parseInt(nbrPlayers);
+    }
+    return nbrPlayers;
+}
+
+function changePlayer(IDmax: number): number {
+    let remove_label = document.getElementById("lblObjToRemove") as HTMLElement;
+    if (playerID < IDmax) {
+        playerID++;
+    } else {
+        playerID = 1;
+    }
+    remove_input.placeholder = `Joueur ${playerID}`;
+    remove_label.innerText = `Joueur ${playerID}, à votre tour !`;
+    console.log(playerID);
+    return playerID;
+}
+
+const nbrPlayers = maxPlayers();
 
 displayObjs();
 

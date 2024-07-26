@@ -1,12 +1,6 @@
-var nbObj = 50;
+var nbObj = 5;
 var divObj = document.getElementById("nbObjs");
-var playerID = 1;
-var remove_input = document.getElementById("objToRemove");
-var remove_button = document.getElementById("play");
 var displayObjs = function () {
-    var remove_label = document.getElementById("lblObjToRemove");
-    remove_input.placeholder = "Joueur ".concat(playerID);
-    remove_label.innerText = "Joueur ".concat(playerID, ", \u00E0 votre tour !");
     if (divObj)
         divObj.innerText = nbObj.toString();
     return divObj;
@@ -23,7 +17,11 @@ var displayObjs = function () {
     return nbObj;
 }; */
 var removeSomeObjs2 = function () {
-    var errorParagraph = document.getElementById("error");
+    var errorParagraph = {};
+    var toto = document.getElementById("error");
+    if (toto)
+        errorParagraph = toto;
+    //const errorParagraph = document.getElementById('error') as HTMLElement;
     errorParagraph.innerText = "";
     var inputElement = document.getElementById("objToRemove");
     var quantityToRemove = parseInt(inputElement.value);
@@ -40,8 +38,6 @@ var removeSomeObjs2 = function () {
             if (divObj)
                 divObj.innerText = nbObj.toString();
             inputElement.value = "";
-            if (nbObj !== 0)
-                changePlayer(nbrPlayers);
             return nbObj;
         }
         errorParagraph.innerText = errorMessage;
@@ -51,13 +47,15 @@ var removeSomeObjs2 = function () {
 };
 var displayChange = function () {
     var victoryDiv = document.getElementById("victoire");
-    victoryDiv.innerText = "Bravo Joueur ".concat(playerID, ", vous avez gagn\u00E9 !");
+    victoryDiv.innerText = "Bravo, vous avez gagné !";
     victoryDiv.classList.add("visible");
     var gameDiv = document.getElementById("gamePlayer");
     gameDiv.classList.add("hidden");
     //gameDiv.style.display = 'none';
 };
 function clickButton() {
+    var remove_input = document.getElementById("objToRemove");
+    var remove_button = document.getElementById("play");
     remove_button.addEventListener("click", function () {
         victoire();
     });
@@ -74,27 +72,5 @@ var victoire = function () {
         displayChange();
     }
 };
-function maxPlayers() {
-    var nbrPlayers;
-    while (isNaN(nbrPlayers)) {
-        nbrPlayers = prompt("Déterminez le nombre de joueurs");
-        nbrPlayers = parseInt(nbrPlayers);
-    }
-    return nbrPlayers;
-}
-function changePlayer(IDmax) {
-    var remove_label = document.getElementById("lblObjToRemove");
-    if (playerID < IDmax) {
-        playerID++;
-    }
-    else {
-        playerID = 1;
-    }
-    remove_input.placeholder = "Joueur ".concat(playerID);
-    remove_label.innerText = "Joueur ".concat(playerID, ", \u00E0 votre tour !");
-    console.log(playerID);
-    return playerID;
-}
-var nbrPlayers = maxPlayers();
 displayObjs();
 clickButton();
